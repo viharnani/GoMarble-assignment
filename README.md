@@ -14,19 +14,17 @@ graph TD;
     F --> G[Check and Close Popup if exists]
     G --> H[Review Selectors Cached?]
     H -->|Yes| I[Use Cached Selectors]
-    H -->|No| J[Process HTML in Chunk]
-    J --> K[Extract Selectors using Gemini api]
+    H -->|No| J[Process HTML in Chunks]
+    J --> K[Extract Selectors using Gemini LLM API]
     K --> L[Extract Reviews from HTML]
     L --> M[Collect Enough Reviews?]
-    M -->|Yes| N[Send Reviews]
-    M -->|No| O[Next Page Button, Click, Wait]
+    M -->|Yes| N[Send Reviews to Frontend]
+    M -->|No| O[Next Page Button, Click, Wait for Next Page]
     N --> P[End Process]
     O --> L
     D --> P
-```
-## Demo
 
-https://github.com/user-attachments/assets/9b540144-f515-4be2-ae03-ce9cbcdc6118
+```
 
 ## Features
 
@@ -52,6 +50,39 @@ https://github.com/user-attachments/assets/9b540144-f515-4be2-ae03-ce9cbcdc6118
   - Gemini LLM for identifying CSS selectors dynamically
   - CORS for handling cross-origin requests
   - dotenv for managing environment variables
+ 
+  - #Project Structure
+ 
+  - ## Backend
+ 
+  - backend/
+│
+├── index.js
+├── package.json
+├── helpers/
+│   ├── chunkHtml.js
+│   ├── extractSelectors.js
+│   └── logReviewDetails.js
+├── services/
+│   └── playwrightService.js
+└── node_modules/
+
+
+#Frontend
+
+frontend/
+│
+├── node_modules/
+├── src/
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
+├── images/
+└── .gitignore
+
 
 
 
@@ -147,15 +178,3 @@ The application handles various error cases:
 - Timeout errors
 - Missing review elements
 - Server errors
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## License
-
-Feel free to use this project for any purpose.
